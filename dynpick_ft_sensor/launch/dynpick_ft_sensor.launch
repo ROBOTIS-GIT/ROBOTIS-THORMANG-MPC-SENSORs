@@ -1,0 +1,29 @@
+<launch>
+  <arg name="rate" default="250" />
+  <arg name="left_leg_device" default="/dev/DYNPICK1" />
+  <arg name="left_leg_sensor_frame_id" default="/thormang3/left_leg_ft_sensor" />
+  <arg name="left_leg_topic" default="/thormang3/sensor/left_leg_ft_sensor" />
+  <arg name="left_leg_model" default="WEF-6A1000-80-40-RGXTi2_5" />
+
+  <node pkg="dynpick_ft_sensor" name="dynpick_left_leg_node" type="dynpick_left_leg_node" output="screen">
+    <param name="rate" value="$(arg rate)" />
+    <param name="device" value="$(arg left_leg_device)" />
+    <param name="frame_id" value="$(arg left_leg_sensor_frame_id)" />
+    <param name="model" value="$(arg left_leg_model)" />
+    <remap from="/force" to="$(arg left_leg_topic)" />
+  </node>
+
+  <arg name="right_leg_device" default="/dev/DYNPICK2" />
+  <arg name="right_leg_sensor_frame_id" default="/thormang3/right_leg_ft_sensor" />
+  <arg name="right_leg_topic" default="/thormang3/sensor/right_leg_ft_sensor" />
+  <arg name="right_leg_model" default="WEF-6A1000-80-40-RGXTi2_6" />
+
+  <node pkg="dynpick_ft_sensor" name="dynpick_right_leg_node" type="dynpick_right_leg_node" output="screen">
+    <param name="rate" value="$(arg rate)" />
+    <param name="device" value="$(arg right_leg_device)" />
+    <param name="frame_id" value="$(arg right_leg_sensor_frame_id)" />
+    <param name="model" value="$(arg right_leg_model)" />
+    <remap from="/force" to="$(arg right_leg_topic)" />
+  </node>
+
+</launch>
