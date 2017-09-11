@@ -117,8 +117,10 @@ int main(int argc, char **argv)
   double my = doc["My"].as<double>();
   double mz = doc["Mz"].as<double>();
 
+  ROS_INFO("--- Sensitivity Value ---");
   ROS_INFO("Fx: %f, Fy: %f, Fz: %f", fx, fy, fz);
   ROS_INFO("Mx: %f, My: %f, Mz: %f", mx, my, mz);
+  ROS_INFO("--- ---");
 
   //
   ros::ServiceServer service = n.advertiseService("tare", offsetRequest);
@@ -163,14 +165,6 @@ int main(int argc, char **argv)
       write(fdc, "R", 1);
 
       // Obtain single data
-
-//      c = read(fdc, str, 27);
-//      if (c < 27)
-//        {
-//        ROS_INFO ("=== error ! n = %d ===", c);
-////        goto skip;
-//        }
-
 #define DATA_LENGTH 27
       len = 0;
       while ( len < DATA_LENGTH )
