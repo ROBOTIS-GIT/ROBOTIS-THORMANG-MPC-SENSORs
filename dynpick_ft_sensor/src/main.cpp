@@ -193,12 +193,22 @@ int main(int argc, char **argv)
       msg.header.stamp = ros::Time::now();
       msg.header.seq = clock++;
 
-      msg.wrench.force.x = (data[0]-8192)/fx;
-      msg.wrench.force.y = (data[1]-8192)/fy;
-      msg.wrench.force.z = (data[2]-8192)/fz;
-      msg.wrench.torque.x = (data[3]-8192)/mx;
-      msg.wrench.torque.y = (data[4]-8192)/my;
-      msg.wrench.torque.z = (data[5]-8192)/mz;
+      double force_x = (data[0]-8192)/fx;
+      double force_y = (data[1]-8192)/fy;
+      double force_z = (data[2]-8192)/fz;
+
+      double torque_x = (data[0]-8192)/mx;
+      double torque_y = (data[1]-8192)/my;
+      double torque_z = (data[2]-8192)/mz;
+
+      double theta = 0.5*M_PI;
+
+      msg.wrench.force.x = cos(theta)*force_x - sin(theta)*force_y;
+      msg.wrench.force.y = sin(theta)*force_x + sin(theta)*force_y;
+      msg.wrench.force.z = force_z;
+      msg.wrench.torque.x = cos(theta)*torque_x - sin(theta)*torque_y;
+      msg.wrench.torque.y = sin(theta)*torque_x + sin(theta)*torque_y;
+      msg.wrench.torque.z = torque_z;
 
       pub.publish(msg);
     }
