@@ -200,23 +200,12 @@ int main(int argc, char **argv)
       double torque_y = (data[4]-8192)/my;
       double torque_z = (data[5]-8192)/mz;
 
-      double theta = -0.5*M_PI;
-
-      double force_x_mod = cos(theta)*force_x - sin(theta)*force_y;
-      double force_y_mod = sin(theta)*force_x + cos(theta)*force_y;
-      double force_z_mod = force_z;
-      double torque_x_mod = cos(theta)*torque_x - sin(theta)*torque_y;
-      double torque_y_mod = sin(theta)*torque_x + cos(theta)*torque_y;
-      double torque_z_mod = torque_z;
-
-      double theta_mod = M_PI;
-
-      msg.wrench.force.x = force_x_mod;
-      msg.wrench.force.y = cos(theta_mod)*force_y_mod - sin(theta_mod)*force_z_mod;
-      msg.wrench.force.z = sin(theta_mod)*force_y_mod + cos(theta_mod)*force_z_mod;
-      msg.wrench.torque.x = torque_x_mod;
-      msg.wrench.torque.y = cos(theta_mod)*torque_y_mod - sin(theta_mod)*torque_z_mod;
-      msg.wrench.torque.z = sin(theta_mod)*torque_y_mod + cos(theta_mod)*torque_z_mod;
+      msg.wrench.force.x = force_x;
+      msg.wrench.force.y = force_y;
+      msg.wrench.force.z = force_z;
+      msg.wrench.torque.x = torque_x;
+      msg.wrench.torque.y = torque_y;
+      msg.wrench.torque.z = torque_z;
 
       pub.publish(msg);
     }

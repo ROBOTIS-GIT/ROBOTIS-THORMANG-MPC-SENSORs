@@ -1,6 +1,6 @@
 <launch>
   <arg name="rate" default="250" />
-  <arg name="left_leg_device" default="/dev/DYNPICK1" />
+  <arg name="left_leg_device" default="/dev/DYNPICK0" />
   <arg name="left_leg_sensor_frame_id" default="/robotis/l_foot_ft_link" />
   <arg name="left_leg_topic" default="/robotis/sensor/l_foot_ft" />
   <arg name="left_leg_offset" default="/robotis/sensor/l_foot_ft_offset" />
@@ -15,7 +15,7 @@
     <remap from="/tare" to="$(arg left_leg_offset)" />
   </node>
 
-  <arg name="right_leg_device" default="/dev/DYNPICK2" />
+  <arg name="right_leg_device" default="/dev/DYNPICK1" />
   <arg name="right_leg_sensor_frame_id" default="/robotis/r_foot_ft_link" />
   <arg name="right_leg_topic" default="/robotis/sensor/r_foot_ft" />
   <arg name="right_leg_offset" default="/robotis/sensor/r_foot_ft_offset" />
