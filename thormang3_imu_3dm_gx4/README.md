@@ -1,3 +1,11 @@
+# Notice
+
+The thormang3_imu_3dm_gx4 package is a modified version of the imu_3dm_gx4 package (Apache License 2.0) for ROBOTIS Thormang3. The following document is the original README file for the existing imu_3dm_gx4 package. Please refer to the link below for details.
+
+https://github.com/KumarRobotics/imu_3dm_gx4
+
+---
+
 # imu_3dm_gx4
 
 ![Picture of IMU](http://www.microstrain.com/sites/default/files/styles/product_image_main/public/products/GX4-25_ProductImage1.00.jpg?itok=gkOa-CBI)

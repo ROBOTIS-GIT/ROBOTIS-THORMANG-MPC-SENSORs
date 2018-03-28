@@ -1,82 +1,79 @@
 ################################################################################
-# CMake
+# Set minimum required version of cmake, project name and compile options
 ################################################################################
 cmake_minimum_required(VERSION 2.8.3)
 project(thormang3_imu_3dm_gx4)
 
-set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+## Compile as C++11, supported in ROS Kinetic and newer
+add_compile_options(-std=c++11)
 
 ################################################################################
-# Packages
+# Find catkin packages and libraries for catkin and system dependencies
 ################################################################################
 find_package(catkin REQUIRED COMPONENTS
-  diagnostic_updater
-  message_generation
   roscpp
-  geometry_msgs
+  std_msgs
   sensor_msgs
+  geometry_msgs
+  diagnostic_updater
+  message_generation  
 )
 
 find_package(Boost REQUIRED)
 
 ################################################################################
+# Setup for python modules and scripts
+################################################################################
+
+################################################################################
 # Declare ROS messages, services and actions
 ################################################################################
-add_message_files(DIRECTORY msg)
+add_message_files(
+  FILES
+  FilterOutput.msg
+)
 
-generate_messages(DEPENDENCIES geometry_msgs)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  geometry_msgs
+)
 
 ################################################################################
 # Declare ROS dynamic reconfigure parameters
 ################################################################################
 
 ################################################################################
-# Catkin specific configuration
+# Declare catkin specific configuration to be passed to dependent projects
 ################################################################################
 catkin_package(
-  CATKIN_DEPENDS message_runtime geometry_msgs sensor_msgs
+  INCLUDE_DIRS include
+  CATKIN_DEPENDS roscpp std_msgs sensor_msgs geometry_msgs diagnostic_updater message_runtime  
+  DEPENDS Boost
 )
 
 ################################################################################
 # Build
 ################################################################################
 include_directories(
+  include
   ${catkin_INCLUDE_DIRS}
-  ${Boost_INCLUDE_DIR}
+  ${Boost_INCLUDE_DIRS}
 )
-
-add_definitions("-std=c++0x -Wall -Werror")
 
 add_executable(${PROJECT_NAME} src/imu_3dm_gx4.cpp src/imu.cpp)
-
-add_dependencies(${PROJECT_NAME}
-  ${${PROJECT_NAME}_EXPORTED_TARGETS}
-  ${catkin_EXPORTED_TARGETS}
-)
-
-target_link_libraries(${PROJECT_NAME}
-  ${catkin_LIBRARIES}
-)
+add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 ################################################################################
 # Install
 ################################################################################
 install(TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-install(DIRECTORY calib/
-        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
-
-install(DIRECTORY launch/
-        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-)
-
-install(DIRECTORY script/
-        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+install(DIRECTORY calib launch script
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
 ################################################################################
