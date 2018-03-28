@@ -10,7 +10,8 @@
 #include <geometry_msgs/QuaternionStamped.h>
 
 #include <thormang3_imu_3dm_gx4/FilterOutput.h>
-#include "imu.hpp"
+
+#include "thormang3_imu_3dm_gx4/imu.hpp"
 
 using namespace imu_3dm_gx4;
 
